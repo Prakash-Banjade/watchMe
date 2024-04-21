@@ -13,13 +13,17 @@ export default function Header({ }: Props) {
   const routes = useRoutes()
 
   useEffect(() => {
+    const header = document.getElementById("header")
+
+    if (!header) return;
+    
     let prevScrollpos = window.scrollY;
     window.onscroll = function () {
       var currentScrollPos = window.scrollY;
       if (prevScrollpos > currentScrollPos) {
-        document.getElementById("header")!.style.top = "0";
+        header!.style.top = "0";
       } else {
-        document.getElementById("header")!.style.top = "-100px";
+        header!.style.top = "-100px";
       }
       prevScrollpos = currentScrollPos;
     }
@@ -28,7 +32,7 @@ export default function Header({ }: Props) {
   return (
     <header className='flex items-center justify-between py-5 px-5 border-b sticky top-0 z-[50] backdrop-blur-xl transition-all' id='header'>
       <section>
-        <h2 className='text-3xl font-extrabold'>Watch<span className='text-primary'>Me</span></h2>
+        <Link href="/" className='text-3xl font-extrabold'>Watch<span className='text-primary'>Me</span></Link>
       </section>
 
       <section>
