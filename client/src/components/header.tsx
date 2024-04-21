@@ -1,17 +1,59 @@
-import React from 'react'
+'use client'
+import { useRoutes } from '@/hooks/useRoutes'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
+import { Button } from './ui/button'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import clsx from 'clsx'
+import { ModeToggle } from './theme-toggle'
 
 type Props = {}
 
-export default function Header({}: Props) {
+export default function Header({ }: Props) {
+  const routes = useRoutes()
+
+  useEffect(() => {
+    let prevScrollpos = window.scrollY;
+    window.onscroll = function () {
+      var currentScrollPos = window.scrollY;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("header")!.style.top = "0";
+      } else {
+        document.getElementById("header")!.style.top = "-100px";
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  }, [])
+
   return (
-    <header>
-        <section>
-            
-        </section>
+    <header className='flex items-center justify-between py-5 px-5 border-b sticky top-0 z-[50] backdrop-blur-xl transition-all' id='header'>
+      <section>
+        <h2 className='text-3xl font-extrabold'>Watch<span className='text-primary'>Me</span></h2>
+      </section>
 
-        <section>
+      <section>
+        <nav>
+          <ul className='flex gap-6 items-center '>
+            {
+              routes.map(route => (
+                <li key={route.path}>
+                  <Link href={route.path} className={clsx(route.isActive && 'active', 'tab px-4 py-2 rounded-full transition-all')}>{route.label}</Link>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </section>
 
-        </section>
+      <section className='flex items-center gap-5'>
+        <ModeToggle />
+        <Button asChild>
+          <a href={'https://github.com/Prakash-Banjade/watchMe'} target='_blank' rel='noopener noreferrer'>
+            <GitHubLogoIcon className='mr-2 text-2xl' />
+            GitHub
+          </a>
+        </Button>
+      </section>
     </header>
   )
 }
