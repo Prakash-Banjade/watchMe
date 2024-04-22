@@ -1,7 +1,43 @@
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsBoolean, IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
-export class AmazonDto {
+export class AmazonProductDto {
     @IsString()
     @IsNotEmpty()
     url: string;
+
+    @IsString()
+    @IsNotEmpty()
+    title: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    price: number;
+
+    @IsString()
+    @IsNotEmpty()
+    priceSymbol: string;
+
+    @IsDecimal()
+    @IsNotEmpty()
+    rating: number;
+
+    @IsNumber()
+    @IsNotEmpty()
+    ratingNumber: number;
+
+    @IsString()
+    @IsNotEmpty()
+    discount: string;
+
+    @IsString()
+    @IsNotEmpty()
+    image: string;
+
+    @IsString({ each: true })
+    @IsNotEmpty()
+    descriptionArray: string[];
+
+    @IsBoolean()
+    @IsNotEmpty()
+    outOfStock: boolean;
 }
