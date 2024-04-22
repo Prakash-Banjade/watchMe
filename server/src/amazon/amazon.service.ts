@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
 import * as cheerio from 'cheerio'
@@ -16,6 +16,13 @@ export class AmazonService {
 
   async findAll() {
     return await this.productRepo.find()
+  }
+
+  async findOne(id: string) {
+    const existingProduct = await this.productRepo.findOneBy({ id })
+    if (!existingProduct) throw new NotFoundException('Product not found')
+
+    return existingProduct;
   }
 
   async findProduct(url: string) {

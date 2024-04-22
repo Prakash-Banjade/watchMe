@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AmazonService } from './amazon.service';
 
 @Controller('products')
@@ -8,5 +8,10 @@ export class AmazonController {
   @Get()
   findProduct(@Query('url') url: string) {
     return this.amazonService.findProduct(url)
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.amazonService.findOne(id)
   }
 }
