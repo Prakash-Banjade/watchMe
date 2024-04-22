@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation'
 import React, { Suspense } from 'react'
-import NepseTable from './components/nepse-table'
+import NepseTable from './components/nepse/nepse-table'
 import { Metadata } from 'next'
-import { UrlInputForm } from './components/urlInput-form'
-import ProductImageCarousel from './components/product-image-carousel'
+import { UrlInputForm } from './components/products/urlInput-form'
+import ProductImageCarousel from './components/products/product-image-carousel'
 
 type Props = {
     searchParams: {

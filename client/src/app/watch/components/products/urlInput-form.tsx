@@ -14,6 +14,8 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { scrapeProduct } from "../../actions"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
     url: z.string().refine((val) => val.length > 0, {
@@ -22,6 +24,7 @@ const formSchema = z.object({
 })
 
 export function UrlInputForm() {
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -31,8 +34,14 @@ export function UrlInputForm() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        // console.log(values)
+        const product = await scrapeProduct(values.url)
+
+        if (product) {
+            router.push(`/products/${product.title}?id=${product.id}`)
+        }
+
     }
 
     return (

@@ -20,7 +20,7 @@ export function useRoutes(){
         {
             path: '/watch?t=amazon',
             label: 'Amazon Products',
-            isActive: params.get('t') === 'amazon'
+            isActive: params.get('t') === 'amazon' || pathName.includes('products')
         }
     ]
 }
