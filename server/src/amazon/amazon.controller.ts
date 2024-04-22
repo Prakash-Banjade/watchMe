@@ -9,6 +9,6 @@ export class AmazonController {
   @Post()
   @UsePipes(new ValidationPipe({ whitelist: true }))
   findOne(@Body() amazonDto: AmazonDto) {
-    return this.amazonService.findOne(amazonDto.url)
+    return this.amazonService.scrape(amazonDto.url)
   }
 }

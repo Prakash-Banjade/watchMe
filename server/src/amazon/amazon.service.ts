@@ -11,7 +11,7 @@ export class AmazonService {
     return `This action returns all amazon`;
   }
 
-  async findOne(url: string) {
+  async scrape(url: string) {
     try {
       const response = await axios.get(url, brightDataAxiosOptions)
 
@@ -37,8 +37,8 @@ export class AmazonService {
         title,
         price: +(price || usdPrice).replace(/[^\d.]/g, ''),
         priceSmbol: priceSmbol || '$',
-        rating,
-        ratingNumber,
+        rating: +rating,
+        ratingNumber: +ratingNumber.replace(/\D/g, ''),
         discount,
         image,
         descriptionArray,
