@@ -23,3 +23,16 @@ interface Nepse {
     sensitiveFloatIndex: number
     sensitiveFloatPercentageChange: number
 }
+
+type Product = {
+    url: string;
+    title: string;
+    price: number;
+    priceSymbol: string;
+    rating: number;
+    ratingNumber: number;
+    discount: string;
+    image: string;
+    descriptionArray: string[];
+    outOfStock: boolean;
+};
