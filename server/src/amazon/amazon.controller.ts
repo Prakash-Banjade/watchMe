@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AmazonService } from './amazon.service';
-import { AmazonProductDto } from './dto/amazon.dto';
 import { ProductSearchDto } from './dto/product-search.dto';
 
 @Controller('amazon')
