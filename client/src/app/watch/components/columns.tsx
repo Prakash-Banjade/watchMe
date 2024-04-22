@@ -126,22 +126,4 @@ export const nepseColumns: ColumnDef<Stock>[] = [
             return <span className={clsx(stock.percentChange > 0 ? "text-green-500" : "text-red-500", 'pl-4')}>{stock.quantity?.toLocaleString()}</span>
         },
     },
-    {
-        accessorKey: "pClose",
-        header: "pClose",
-        cell: ({ row }) => {
-            const stock = row.original;
-
-            return <span className={clsx(stock.percentChange > 0 ? "text-green-500" : "text-red-500")}>{stock.pClose}</span>
-        },
-    },
-    {
-        accessorKey: "diff",
-        header: "diff",
-        cell: ({ row }) => {
-            const stock = row.original;
-
-            return <span className={clsx(stock.percentChange > 0 ? "text-green-500" : "text-red-500")}>{stock.diff}</span>
-        },
-    },
 ]

@@ -16,6 +16,7 @@ export class SharemarketService {
     const stocks = $('#ctl00_ContentPlaceHolder1_LiveTrading > table tbody tr').map((index, element) => {
       const columns = $(element).find('td');
       return {
+        row: $(columns[8]).html(),
         symbol: $(columns[0]).find('a').text().trim(),
         url: `https://merolagani.com/${$(columns[0]).find('a').attr('href')}`,
         title: $(columns[0]).find('a').attr('title'),
@@ -25,8 +26,8 @@ export class SharemarketService {
         high: +$(columns[4]).text().trim().replace(/,/g, ""),
         low: +$(columns[5]).text().trim().replace(/,/g, ""),
         quantity: +$(columns[6]).text().trim().replace(/,/g, ""),
-        pClose: $(columns[7]).text().trim(),
-        diff: $(columns[8]).text().trim()
+        // pClose: $(columns[7]).text(),
+        // diff: $(columns[8]).text()
       };
     }).get();
 

@@ -8,8 +8,8 @@ interface Stock {
     high: number,
     low: number,
     quantity: number,
-    pClose: string,
-    diff: string
+    // pClose: string,
+    // diff: string
 }
 
 interface Nepse {
