@@ -18,8 +18,9 @@ export class AmazonService {
     return await this.productRepo.find()
   }
 
-  async findOne(url: string) {
-    console.log(url)
+  async findProduct(url: string) {
+    if (!url) return this.findAll();
+
     if (!this.isValidAmazonDomain(url)) throw new BadRequestException('Please enter only amazon product url')
 
     const product = await this.productRepo.findOne({ where: { url } })
