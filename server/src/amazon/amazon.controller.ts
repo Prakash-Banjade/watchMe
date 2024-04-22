@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/c
 import { AmazonService } from './amazon.service';
 import { ProductSearchDto } from './dto/product-search.dto';
 
-@Controller('amazon')
+@Controller('products')
 export class AmazonController {
   constructor(private readonly amazonService: AmazonService) { }
 
