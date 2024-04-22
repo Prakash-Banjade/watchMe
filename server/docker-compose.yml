@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  postgres: 
+    image: postgres
+    restart: always
+    container_name: watch_me
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgSQL
+      - POSTGRES_DB=watch_me
+    volumes:
+      - postgres:/data/postgres
+
+volumes:
+  postgres:
