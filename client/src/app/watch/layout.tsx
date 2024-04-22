@@ -9,7 +9,7 @@ export default function WatchLayout({
     children
 }: Props) {
     return (
-        <div className='container'>
+        <div>
             <Header />
             {children}
         </div>

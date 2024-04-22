@@ -6,7 +6,7 @@ import { API } from "./api";
 // }
 
 export async function getNepseData() {
-    const response = await fetch(`${API}/shareMarket`);
+    const response = await fetch(`${API}/shareMarket`, { cache: 'no-cache' });
 
     if (!response.ok) throw new Error('Failed to fetch data');
 
