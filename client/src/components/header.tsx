@@ -31,9 +31,9 @@ export default function Header({ }: Props) {
   }, [])
 
   return (
-    <header className='flex items-center justify-between py-5 border-b sticky top-0 z-[50] backdrop-blur-xl transition-all' id='header'>
+    <header className='flex items-center justify-between py-5 border-b sticky top-0 z-[50] backdrop-blur-xl transition-all px-5' id='header'>
       <section className='flex items-center gap-4'>
-        <HeaderDropDownMenu />
+        <div className='lg:hidden block'><HeaderDropDownMenu /></div>
         <Link href="/" className='text-3xl font-extrabold'>Watch<span className='text-primary'>Me</span></Link>
       </section>
 

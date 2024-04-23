@@ -10,10 +10,9 @@ import { CiMenuFries } from "react-icons/ci"
 
 export function HeaderDropDownMenu() {
     return (
-       <div className="lg:hidden block">
-         <DropdownMenu>
+        <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button size={'icon'} variant={'outline'} className='sm:flex hidden text-xl'><CiMenuFries /></Button>
+                <Button size={'icon'} variant={'outline'} className='text-xl'><CiMenuFries /></Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="start" side="right" alignOffset={110}>
                 <DropdownMenuItem asChild>
@@ -27,6 +26,5 @@ export function HeaderDropDownMenu() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-       </div>
     )
 }
