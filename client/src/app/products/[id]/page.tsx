@@ -46,7 +46,6 @@ function PriceCard({ variant, product, icon }
 export default async function SingleProductPage({ params: { id } }: Props) {
 
     const product = await getProductData(id);
-    console.log(product)
 
     return (
         <>
