@@ -51,7 +51,7 @@ export default async function SingleProductPage({ params: { id } }: Props) {
     return (
         <>
             <BackBtn />
-            <main className='py-6 grid md:grid-cols-2 gap-5'>
+            <main className='py-6 grid lg:grid-cols-2 gap-10'>
                 <section className='h-full grid place-items-center'>
                     <div className='px-12 py-24 shadow-sm border rounded-md'>
                         <ProductImageCarousel imageUrls={product.images} />
