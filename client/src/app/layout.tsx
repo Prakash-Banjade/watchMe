@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/theme-provider";
 import { GeistSans } from "geist/font/sans";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Watch Me",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
+        <Toaster />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

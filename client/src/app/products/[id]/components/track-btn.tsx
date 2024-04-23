@@ -1,26 +1,59 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
+import React from 'react'
 import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { CiMail } from 'react-icons/ci'
+import { addUserEmailToProduct } from '../actions'
+import toast from 'react-hot-toast'
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
+
+const formSchema = z.object({
+    email: z.string().email()
+})
 
 type Props = {
-    product: Product
+    product: Product & Base
 }
 
 export default function TrackBtn({ product }: Props) {
-    const [email, setEmail] = useState('')
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+        },
+    })
+
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const resposne = addUserEmailToProduct(values.email, product.id)
+
+        toast.promise(resposne, {
+            loading: 'Saving...',
+            success: <b>Added to watch list!</b>,
+            error: (err) => `An error occured: ${err.message}`,
+        })
+
+    }
 
     return (
         <Dialog>
@@ -36,20 +69,30 @@ export default function TrackBtn({ product }: Props) {
                         Never miss a bargain again with our timely alerts.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="">
-                        <Label htmlFor="email" className="text-right">
-                            Email
-                        </Label>
-                        <div className='relative w-full flex items-center justify-center'>
-                            <Input id="email" placeholder="your_email@example.com" className='pl-10' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <div className='text-muted-foreground absolute left-[3%] -z-10'><CiMail /></div>
-                        </div>
-                    </div>
+                <div className="">
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="your_email@example.com" type='email'  {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit" disabled={form.formState.isSubmitting}>
+                                {
+                                    form.formState.isSubmitting ? "Saving..." : "Track Product"
+                                }
+                            </Button>
+                        </form>
+                    </Form>
                 </div>
-                <DialogFooter>
-                    <Button type="button" className='w-full'>Track Product</Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     )
