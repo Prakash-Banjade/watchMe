@@ -1,15 +1,16 @@
 import BackBtn from '@/components/utils/back-btn';
 import { getProductData } from '@/lib/product-data-access'
-import Image from 'next/image';
 import React from 'react'
 import { CiHeart, CiStar } from "react-icons/ci";
 import { IoMdPricetags } from "react-icons/io";
 import { AiOutlineMoneyCollect } from "react-icons/ai";
 import { BsGraphDownArrow, BsGraphUpArrow } from "react-icons/bs"
 import TrackBtn from './components/track-btn';
+import ProductImageCarousel from '@/app/watch/components/products/product-image-carousel';
+import { TiInfoOutline } from "react-icons/ti";
 
 type Props = {
-    searchParams: {
+    params: {
         id: string,
     }
 }
@@ -27,7 +28,7 @@ function PriceCard({ variant, product, icon }
         icon: React.ReactNode
     }) {
 
-    const price = variant === 'current' ? product.price : variant === 'highest' ? originalPrice(product) : variant === 'lowest' ? product.price : product.price
+    const price = product.price === 0 ? 'N/A' : variant === 'current' ? product.price : variant === 'highest' ? originalPrice(product) : variant === 'lowest' ? product.price : product.price
 
     return (
         <div className='px-5 py-4 rounded-lg border bg-secondary text-sm flex flex-col gap-2'>
@@ -42,25 +43,18 @@ function PriceCard({ variant, product, icon }
 
 
 
-export default async function SingleProductPage({ searchParams: { id } }: Props) {
+export default async function SingleProductPage({ params: { id } }: Props) {
 
     const product = await getProductData(id);
-
+    console.log(product)
 
     return (
         <>
             <BackBtn />
-            <main className='py-12 grid md:grid-cols-2 gap-5'>
+            <main className='py-6 grid md:grid-cols-2 gap-5'>
                 <section className='h-full grid place-items-center'>
                     <div className='px-12 py-24 shadow-sm border rounded-md'>
-                        <Image
-                            src={product.image}
-                            alt={product.title}
-                            className='rounded-md'
-                            height={600}
-                            width={400}
-                            loading='lazy'
-                        />
+                        <ProductImageCarousel imageUrls={product.images} />
                     </div>
                 </section>
 
@@ -73,18 +67,33 @@ export default async function SingleProductPage({ searchParams: { id } }: Props)
                     </section>
                     <hr className='bg-border w-full my-6' />
 
+                    {/* Price not available yet */}
+                    {
+                        product?.price === 0 && <div className='mb-5 px-3 py-2 rounded-full text-sm text-primary bg-red-300/10 flex items-center gap-2'>
+                            <TiInfoOutline />
+                            This product has variable price. You can check out the main site.
+                        </div>
+                    }
+
                     <section className='flex gap-32 items-center'>
                         <div className='flex flex-col gap-1'>
-                            <strong className='text-4xl'><span className='text-sm'>{product.priceSymbol}</span> {product.price.toLocaleString()}</strong>
+                            <strong className='text-4xl'>
+                                <span className='text-sm'>{product.priceSymbol}</span>
+                                {product?.price === 0 ? 'N/A' : product.price.toLocaleString()}
+                            </strong>
                             {product.discount && <del className='text-muted-foreground mt-3 text-lg'>{product.priceSymbol} {originalPrice(product)}</del>}
                         </div>
 
-                        <div>
-                            <div className='px-3 py-2 text-sm rounded-full text-[#a28c7e] bg-[#a28c7e]/10 flex items-center'>
+                        <div className='flex flex-wrap gap-2'>
+                            <div className='px-3 py-2 text-sm rounded-full w-fit text-[#b39d8f] bg-[#a28c7e]/10 flex items-center'>
                                 <CiStar className='mr-2 text-lg' />
                                 {product.rating || 'N/A'}
                                 <span className='text-xs ml-2'>( {product.ratingNumber} )</span>
                             </div>
+
+                            {product.rating && <div className='rounded-full px-3 py-2 text-sm text-pink-400 bg-pink-100/10'>
+                                <p>{product.rating / 5 * 100}% of the customers likes this</p>
+                            </div>}
                         </div>
                     </section>
 
@@ -98,7 +107,7 @@ export default async function SingleProductPage({ searchParams: { id } }: Props)
                     </section>
 
                     <section className='mt-10 w-full'>
-                        <TrackBtn />
+                        <TrackBtn product={product} />
                     </section>
 
                 </section>

@@ -36,10 +36,12 @@ export function UrlInputForm() {
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
         // console.log(values)
-        const product = await scrapeProduct(values.url)
+        const productPromise = scrapeProduct(values.url)
+
+        const product = await productPromise
 
         if (product) {
-            router.push(`/products/${product.title}?id=${product.id}`)
+            router.push(`/products/${product.id}`)
         }
 
     }
@@ -62,7 +64,11 @@ export function UrlInputForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Search</Button>
+                <Button type="submit" disabled={form.formState.isSubmitting}>
+                    {
+                        form.formState.isSubmitting ? "Searching..." : "Search"
+                    }
+                </Button>
             </form>
         </Form>
     )

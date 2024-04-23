@@ -32,7 +32,7 @@ type Product = {
     rating: number;
     ratingNumber: number;
     discount: string;
-    image: string;
+    images: string[];
     descriptionArray: string[];
     outOfStock: boolean;
 };

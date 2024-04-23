@@ -11,6 +11,13 @@ type Props = {
     }
 }
 
+const imageUrls = [
+    'https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=2568&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=2505&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1584589167171-541ce45f1eea?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://images.unsplash.com/photo-1615486363973-f79d875780cf?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+]
+
 export async function generateMetadata({ searchParams: { t } }: Props): Promise<Metadata> {
     switch (t) {
         case 'nepse': return { title: 'Nepse', description: 'Watch Market Nepse.' }
@@ -48,7 +55,7 @@ export default function WatchPage({ searchParams: { t } }: Props) {
                     </div>
                 </section>
                 <section className='flex items-center justify-center h-full'>
-                    <ProductImageCarousel />
+                    <ProductImageCarousel imageUrls={imageUrls} />
                 </section>
             </main>
         )
