@@ -87,7 +87,7 @@ export default async function SingleProductPage({ params: { id } }: Props) {
                             <div className='px-3 py-2 text-sm rounded-full w-fit text-[#b39d8f] bg-[#a28c7e]/10 flex items-center'>
                                 <CiStar className='mr-2 text-lg' />
                                 {product.rating || 'N/A'}
-                                <span className='text-xs ml-2'>( {product.ratingNumber} )</span>
+                                <span className='text-xs ml-2'>( {product.ratingNumber?.toLocaleString()} )</span>
                             </div>
 
                             {product.rating && <div className='rounded-full px-3 py-2 text-sm text-pink-400 bg-pink-100/10'>
