@@ -16,7 +16,7 @@ type Props = {
 
 export default function ProductImageCarousel({ imageUrls }: Props) {
     return (
-        <div className='px-24 py-12 rounded-md bg-secondary flex items-center justify-center'>
+        <div className='px-24 py-12 rounded-md flex items-center justify-center'>
             <Carousel className="w-full max-w-xs flex items-center justify-center">
                 <CarouselContent>
                     {imageUrls?.map((url, index) => (
