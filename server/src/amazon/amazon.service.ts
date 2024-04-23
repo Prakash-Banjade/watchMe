@@ -6,6 +6,7 @@ import { brightDataAxiosOptions } from 'src/config/brightData.config';
 import { AmazonProduct } from './entities/amazon.entity';
 import { Repository } from 'typeorm';
 import { AmazonProductDto } from './dto/amazon.dto';
+import { AddUserEmailDto } from './dto/addUserEmail.dto';
 
 
 @Injectable()
@@ -75,6 +76,23 @@ export class AmazonService {
       outOfStock,
       url,
     }
+  }
+
+  async addUserEmailToProduct(addUserEmailDto: AddUserEmailDto) {
+    const existingProduct = await this.findOne(addUserEmailDto.productId)
+
+    const userExists = existingProduct.users?.some(user => user === addUserEmailDto.email)
+
+    if (userExists) return { message: 'User added' }
+
+    existingProduct.users = existingProduct.users?.length ? [...existingProduct.users, addUserEmailDto.email] : [addUserEmailDto.email]
+
+    await this.productRepo.save(existingProduct)
+
+    return { message: 'User added' }
+
+    // const products = await this.findAll()
+    // products.forEach(async (product) => await this.productRepo.remove(product))
   }
 
   isValidAmazonDomain(url: string) {

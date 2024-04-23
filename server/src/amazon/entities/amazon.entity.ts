@@ -32,4 +32,7 @@ export class AmazonProduct extends BaseEntity {
 
     @Column({ type: 'boolean', default: false })
     outOfStock: boolean;
+
+    @Column({ type: 'simple-array', nullable: true })
+    users: string[];
 }
