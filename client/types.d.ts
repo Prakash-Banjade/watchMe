@@ -36,3 +36,10 @@ type Product = {
     descriptionArray: string[];
     outOfStock: boolean;
 };
+
+type Base = {
+    id: string;
+    createdAt: string;
+    updatedAt: string | null;
+    deletedAt: string | null;
+}

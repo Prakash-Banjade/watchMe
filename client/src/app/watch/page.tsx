@@ -4,6 +4,7 @@ import NepseTable from './components/nepse/nepse-table'
 import { Metadata } from 'next'
 import { UrlInputForm } from './components/products/urlInput-form'
 import ProductImageCarousel from './components/products/product-image-carousel'
+import TrendingProducts from './components/products/trending-products'
 
 type Props = {
     searchParams: {
@@ -44,20 +45,25 @@ export default function WatchPage({ searchParams: { t } }: Props) {
             </main>
         )
         case 'amazon': return (
-            <main className='p-5 grid md:grid-cols-2 grid-cols-1 gap-5 min-h-[calc(100vh-80px)]'>
-                <section className='h-full flex flex-col items-start justify-center'>
-                    <div>
-                        <h2 className='capitalize text-left text-5xl tracking-tight leading-tight font-bold'>Unleash the power of <br /><span className='text-primary'>WatchMe</span></h2>
-                        <p className='mt-2 text-sm'>Powerful, self serve product and growth analytics to help you convert, engage, and retail more.</p>
-                        <div className='mt-10'>
-                            <UrlInputForm />
+            <div className='pb-36'>
+                <main className='p-5 grid md:grid-cols-2 grid-cols-1 gap-5'>
+                    <section className='h-full flex flex-col items-start justify-center'>
+                        <div>
+                            <h2 className='capitalize text-left text-5xl tracking-tight leading-tight font-bold'>Unleash the power of <br /><span className='text-primary'>WatchMe</span></h2>
+                            <p className='mt-2 text-sm'>Powerful, self serve product and growth analytics to help you convert, engage, and retail more.</p>
+                            <div className='mt-10'>
+                                <UrlInputForm />
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section className='flex items-center justify-center h-full'>
-                    <ProductImageCarousel imageUrls={imageUrls} />
-                </section>
-            </main>
+                    </section>
+                    <section className='flex items-center justify-center h-full'>
+                        <ProductImageCarousel imageUrls={imageUrls} />
+                    </section>
+                </main>
+                <Suspense fallback={<p>Loading...</p>}>
+                    <TrendingProducts />
+                </Suspense>
+            </div>
         )
     }
 }
