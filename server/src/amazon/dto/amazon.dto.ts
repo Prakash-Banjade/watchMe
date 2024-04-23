@@ -29,9 +29,9 @@ export class AmazonProductDto {
     @IsNotEmpty()
     discount: string;
 
-    @IsString()
+    @IsString({ each: true })
     @IsNotEmpty()
-    image: string;
+    images: string[];
 
     @IsString({ each: true })
     @IsNotEmpty()

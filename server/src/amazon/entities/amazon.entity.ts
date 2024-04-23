@@ -24,8 +24,8 @@ export class AmazonProduct extends BaseEntity {
     @Column({ type: 'varchar' })
     discount: string;
 
-    @Column({ type: 'varchar' })
-    image: string;
+    @Column({ type: 'simple-array' })
+    images: string[];
 
     @Column({ type: 'simple-array', default: [] })
     descriptionArray: string[];

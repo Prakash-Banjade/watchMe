@@ -53,7 +53,6 @@ export class AmazonService {
     const ratingNumber = $('#averageCustomerReviews > span:nth-child(3)').text().trim()
     const priceSmbol = $('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center.aok-relative > span.a-price.aok-align-center.reinventPricePriceToPayMargin.priceToPay > span:nth-child(2) > span.a-price-symbol').text().trim();
     const discount = $('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center.aok-relative > span.a-size-large.a-color-price.savingPriceOverride.aok-align-center.reinventPriceSavingsPercentageMargin.savingsPercentage').text().trim();
-    const image = $('#landingImage').attr('src')
     const descriptionArray = [];
     const outOfStock = $('#availability > span').text().trim().toLowerCase() === 'out of stock'
 
@@ -62,6 +61,8 @@ export class AmazonService {
       descriptionArray.push(description);
     });
 
+    const images = $('#landingImage').attr('data-a-dynamic-image')
+
     return {
       title,
       price: +(price || usdPrice).replace(/[^\d.]/g, ''),
@@ -69,7 +70,7 @@ export class AmazonService {
       rating: +rating,
       ratingNumber: +ratingNumber.replace(/\D/g, ''),
       discount,
-      image,
+      images: Object.keys(JSON.parse(images)),
       descriptionArray,
       outOfStock,
       url,
