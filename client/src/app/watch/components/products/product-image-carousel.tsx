@@ -1,4 +1,8 @@
+'use client'
+
 import React from 'react'
+import Autoplay from "embla-carousel-autoplay"
+
 import {
     Carousel,
     CarouselContent,
@@ -17,7 +21,14 @@ type Props = {
 export default function ProductImageCarousel({ imageUrls }: Props) {
     return (
         <div className='px-24 py-12 rounded-md flex items-center justify-center'>
-            <Carousel className="w-full max-w-xs flex items-center justify-center">
+            <Carousel
+                className="w-full max-w-xs flex items-center justify-center"
+                plugins={[
+                    Autoplay({
+                        delay: 2000,
+                    }),
+                ]}
+            >
                 <CarouselContent>
                     {imageUrls?.map((url, index) => (
                         <CarouselItem key={index}>
