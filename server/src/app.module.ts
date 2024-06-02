@@ -7,6 +7,7 @@ import { AmazonModule } from './amazon/amazon.module';
 import configuration from './config/env.config'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config/db.config';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -16,7 +17,9 @@ import { configService } from './config/db.config';
     }),
     TypeOrmModule.forRoot(configService),
     SharemarketModule,
-    AmazonModule],
+    AmazonModule,
+    MailModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
