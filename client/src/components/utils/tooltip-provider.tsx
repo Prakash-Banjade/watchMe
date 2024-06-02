@@ -13,7 +13,7 @@ export function TooltipWrapper({ trigger, title }: {
 }) {
     return (
         <TooltipProvider>
-            <Tooltip>
+            <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                     {trigger}
                 </TooltipTrigger>
