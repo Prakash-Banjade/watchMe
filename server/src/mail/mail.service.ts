@@ -10,14 +10,14 @@ export class MailService {
         private readonly configService: ConfigService
     ) { }
 
-    async sendUserCredentials(email: string, name: string,) {
+    async sendConfirmationOfTracking(email: string, product_name: string, product_image: string) {
         const result = await this.mailerService.sendMail({
             to: email,
             subject: 'Welcome to Nepal Red Cross ! Confirm your Email',
             template: './confirmation', // `.hbs` extension is appended automatically
             context: { // ✏️ filling curly brackets with content
-                name: name,
-                email: email,
+                product_name,
+                product_image,
             },
         });
 

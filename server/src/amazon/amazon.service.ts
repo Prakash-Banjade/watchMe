@@ -7,12 +7,14 @@ import { AmazonProduct } from './entities/amazon.entity';
 import { Repository } from 'typeorm';
 import { AmazonProductDto } from './dto/amazon.dto';
 import { AddUserEmailDto } from './dto/addUserEmail.dto';
+import { MailService } from 'src/mail/mail.service';
 
 
 @Injectable()
 export class AmazonService {
   constructor(
-    @InjectRepository(AmazonProduct) private readonly productRepo: Repository<AmazonProduct>
+    @InjectRepository(AmazonProduct) private readonly productRepo: Repository<AmazonProduct>,
+    private readonly mailService: MailService,
   ) { }
 
   async findAll() {
@@ -83,11 +85,16 @@ export class AmazonService {
 
     const userExists = existingProduct.users?.some(user => user === addUserEmailDto.email)
 
-    if (userExists) return { message: 'User added' }
+    if (userExists) {
+      await this.mailService.sendConfirmationOfTracking(addUserEmailDto.email, existingProduct.title, existingProduct.images[0])
+      return { message: 'User added' }
+    }
 
     existingProduct.users = existingProduct.users?.length ? [...existingProduct.users, addUserEmailDto.email] : [addUserEmailDto.email]
 
     await this.productRepo.save(existingProduct)
+
+    await this.mailService.sendConfirmationOfTracking(addUserEmailDto.email, existingProduct.title, existingProduct.images[0])
 
     return { message: 'User added' }
 
